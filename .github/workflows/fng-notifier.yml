@@ -1,0 +1,33 @@
+name: Run FNG Notifier every day at 14:00
+
+on:
+  schedule:
+    - cron: '0 14 * * *'
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+        working-directory: ${{ github.workspace }}
+
+      - name: Run Python script
+        run: |
+          python src/main.py
+        env:
+          email_sender: ${{ secrets.EMAIL_SENDER }}
+          email_password: ${{ secrets.EMAIL_PASSWORD }}
+          email_receiver: ${{ secrets.EMAIL_RECEIVER }}
