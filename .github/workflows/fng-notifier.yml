@@ -7,7 +7,7 @@ on:
 jobs:
   run-script:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -36,6 +36,6 @@ jobs:
         run: |
           python src/main.py
         env:
-          email_sender: ${{ secrets.EMAIL_SENDER }}
-          email_password: ${{ secrets.EMAIL_PASSWORD }}
-          email_receiver: ${{ secrets.EMAIL_RECEIVER }}
+          EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
