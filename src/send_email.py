@@ -4,7 +4,7 @@ import ssl
 import smtplib
 from dotenv import load_dotenv
 
-def send_notification(subject, body):
+def send_notification(subject: str, body: str):
     load_dotenv()
     email_sender = os.environ.get("EMAIL_SENDER")
     email_password = os.environ.get("EMAIL_PASSWORD")
