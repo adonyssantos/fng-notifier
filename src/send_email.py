@@ -6,6 +6,13 @@ from dotenv import load_dotenv
 
 def send_notification(subject: str, body: str):
     load_dotenv()
+
+    if os.environ.get("ENVIRONMENT") == "development":
+        """If it's development environment, print the email instead of sending it."""
+        print(f"Subject: {subject}\n\n{body}")
+        print("-------------------------")
+        return
+
     email_sender = os.environ.get("EMAIL_SENDER")
     email_password = os.environ.get("EMAIL_PASSWORD")
     email_receiver = os.environ.get("EMAIL_RECEIVER")
