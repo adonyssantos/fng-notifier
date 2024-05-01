@@ -4,7 +4,7 @@ import ssl
 import smtplib
 from dotenv import load_dotenv
 
-def send_notification(subject: str, body: str, recipients: List[str]):
+def send_notification(subject: str, body: str):
     load_dotenv()
 
     if os.environ.get("ENVIRONMENT") == "development":
@@ -15,11 +15,12 @@ def send_notification(subject: str, body: str, recipients: List[str]):
 
     email_sender = os.environ.get("EMAIL_SENDER")
     email_password = os.environ.get("EMAIL_PASSWORD")
+    recipients = os.environ.get("EMAIL_RECIPIENTS")
 
     msg = EmailMessage()
     msg['Subject'] = subject
     msg['From'] = email_sender
-    msg['To'] = ", ".join(recipients)
+    msg['To'] = recipients
     msg.set_content(body)
 
     context = ssl.create_default_context()
