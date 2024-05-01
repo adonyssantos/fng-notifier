@@ -4,7 +4,7 @@ import ssl
 import smtplib
 from dotenv import load_dotenv
 
-def send_notification(subject: str, body: str):
+def send_notification(subject: str, body: str, recipients: List[str]):
     load_dotenv()
 
     if os.environ.get("ENVIRONMENT") == "development":
@@ -15,15 +15,14 @@ def send_notification(subject: str, body: str):
 
     email_sender = os.environ.get("EMAIL_SENDER")
     email_password = os.environ.get("EMAIL_PASSWORD")
-    email_receiver = os.environ.get("EMAIL_RECEIVER")
 
     msg = EmailMessage()
     msg['Subject'] = subject
     msg['From'] = email_sender
-    msg['To'] = email_receiver
+    msg['To'] = ", ".join(recipients)
     msg.set_content(body)
 
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
         server.login(email_sender, email_password)
-        server.sendmail(email_sender, email_receiver, msg.as_string())
+        server.send_message(msg)
