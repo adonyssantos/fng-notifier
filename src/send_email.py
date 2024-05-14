@@ -15,15 +15,15 @@ def send_notification(subject: str, body: str):
 
     email_sender = os.environ.get("EMAIL_SENDER")
     email_password = os.environ.get("EMAIL_PASSWORD")
-    recipients = os.environ.get("EMAIL_RECIPIENTS")
+    email_receiver = os.environ.get("EMAIL_RECEIVER").split(',')
 
     msg = EmailMessage()
     msg['Subject'] = subject
     msg['From'] = email_sender
-    msg['To'] = recipients
+    msg['To'] = email_receiver
     msg.set_content(body)
 
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
         server.login(email_sender, email_password)
-        server.send_message(msg)
+        server.sendmail(email_sender, email_receiver, msg.as_string())
