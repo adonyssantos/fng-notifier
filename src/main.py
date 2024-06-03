@@ -11,7 +11,7 @@ if __name__ == "__main__":
     if check_average(average, threshold_value):
         send_notification(
             'IMPORTANT: FNG value below threshold',
-            f"Average FNG value ({average}) is below ({threshold_value}). \n\nIt's a good time to buy the 100%."
+            f"Average FNG value ({average}) on the last 60 days is below ({threshold_value}). \n\nIt's a good time to buy the 100%."
         )
         exit()
 
@@ -21,7 +21,7 @@ if __name__ == "__main__":
     if check_average(average, threshold_value):
         send_notification(
             'IMPORTANT: FNG value below threshold',
-            f"Average FNG value ({average}) is below ({threshold_value}). \n\nIt's a good time to buy the 50%."
+            f"Average FNG value ({average}) on the last 30 days is below ({threshold_value}). \n\nIt's a good time to buy the 50%."
         )
         exit()
 
@@ -31,7 +31,7 @@ if __name__ == "__main__":
     if check_average(threshold_value, average):
         send_notification(
             'IMPORTANT: FNG value above threshold',
-            f"Average FNG value ({average}) is above ({threshold_value}). \n\nIt's a good time to sell the 100%."
+            f"Average FNG value ({average}) on the last 60 days is above ({threshold_value}). \n\nIt's a good time to sell the 100%."
         )
         exit()
 
@@ -41,14 +41,14 @@ if __name__ == "__main__":
     if check_average(threshold_value, average):
         send_notification(
             'IMPORTANT: FNG value above threshold',
-            f"Average FNG value ({average}) is above ({threshold_value}). \n\nIt's a good time to sell the 50%."
+            f"Average FNG value ({average}) on the last 30 days is above ({threshold_value}). \n\nIt's a good time to sell the 50%."
         )
         exit()
 
-    # If it's Monday, send a weekly test email
+    # If it's Monday send the weekly notification with the FNG avg value
     if datetime.datetime.now().weekday() == 0:
         send_notification(
-            "Weekly FNG test",
-            f"The current FNG value is {average}."
+            "Weekly FNG notification",
+            f"The current FNG avg value on the last 30 days is {average}."
         )
         exit()
